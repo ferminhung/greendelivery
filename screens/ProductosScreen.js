@@ -11,46 +11,31 @@ export default class Productos extends React.Component {
   };
   constructor(props){
     super(props);
-    this.state ={ Loading: false}
+    this.state ={ Loading: false,}
   }
-  componentDidMount() {
-    this.setState({
-      loading: true
-    });
-    const ciudad = this.props.navigation.getParam( 'paramCiudad', '261' );
-    fetch(global.direccionPHP, {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          Mandato: 'Green' , sPedidoPhp: '100'
-        }),
-      })
-      .then((response) => response.json())
-      .then((responseJson) => {
-
-        this.setState({
-          loading: false,
-          dataSource: responseJson.RESULT,
-        }, function(){
-
-        });
-      })  
-      .catch((error) =>{
-        console.error(error);
-      });
-  }
+    
   render() {
 
+    const dataSource = [
+      
+
+      {tit:"Articulos Personales",foto:require("../assets/images/colgate.jpg"),desc:"Cuidado personal, agregalos en tu pedido",promo:"n",precio:"",orden:"0"},
+      {tit:"Combo Full Green",foto:require("../assets/images/combofull.jpg"),desc:"Sin pagos por adelantado",promo:"n",precio:"",orden:"0"}, 
+      {tit:"Combo Lacteos",foto:require("../assets/images/lacteos.jpg"),desc:"1 Kg de Queso semiduro, 1/2 Carton de Huevos",promo:"s",precio:"",orden:"0"}, 
+      {tit:"Combo Maracucho",foto:require("../assets/images/maracucho.jpg"),desc:"Papa, Tomate, Cebolla, Zanahoria, paquete de Ramas, Lechuga, Apio, Aguacate",promo:"n",precio:"",orden:"0"},
+      {tit:"Mega Green",foto:require("../assets/images/megagreen.jpg"),desc:"En la puerta de tu casa",promo:"n",precio:"",orden:"0"},
+      {tit:"Combo Viveres",foto:require("../assets/images/viveres.jpg"),desc:"Estas fuera del pais y quieres ayudar a tu familia, se acabaron las excusas",promo:"n",precio:"",orden:"0"}, 
+
+
+    ];
+    
     return (
       <View >
-        <Loader
-          loading={this.state.loading} />
         <ScrollView>
+
+
           <FlatList 
-            data={this.state.dataSource}
+            data={dataSource}
             renderItem={({item}) => this.renderFlatListItem(item)}
             
           />
@@ -70,24 +55,6 @@ export default class Productos extends React.Component {
     );
   }
 
-renderTipo(tipo) {
-    if(tipo==1){
-      return (
-          <Text style={styles.premium}>Premium</Text>
-        )  
-      }else{
-        if(tipo==2){
-          return (
-            <Text style={styles.clase}>Casual</Text>
-          )
-        }else{
-          return (
-            <Text style={styles.clase}>Cafe</Text>
-          )
-        }
-      }
-    
-  }
 
 renderFlatListItem(item) {
     return (
@@ -96,24 +63,23 @@ renderFlatListItem(item) {
         <Divider style={{ backgroundColor: 'red' }} />
         <View style={{flexDirection: 'row',
           flexWrap: 'wrap',}}>
-          <Image style={styles.imagenitem} source={{uri: item.vcFoto}} />
+          <Image style={styles.imagenitem} source={item.foto} />
         </View >
         <View style={{flexDirection: 'row',
           flexWrap: 'wrap', alignItems: 'center'}}>
           <Icon
               containerStyle={{ left:10, justifyContent: 'center'}}
               reverse
-              name='map'
+              name='cart-arrow-down'
               type='font-awesome'
               color='green'
-              size={12}
-              onPress={() => this.props.navigation.navigate( 'Ficha' ,{paramRestaurant: item.idRestaurant})}
+              size={20}
+              onPress={() => Alert.alert("Pedido","Hemos agregado tu item al pedido")}
           />
           <Text style={styles.restaurant}>{item.vcNombre}</Text>
         </View>
-        {this.renderTipo(item.Tipo)}
-        <Text style={styles.titulo}>{item.vcTitulo}</Text>
-        <Text style={styles.subtitulo}>{item.vcDescripcion}</Text>
+        <Text style={styles.titulo}>{item.tit}</Text>
+        <Text style={styles.subtitulo}>{item.desc}</Text>
         <Text ></Text>
         <Text ></Text>
 

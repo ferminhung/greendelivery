@@ -44,7 +44,7 @@ export default class BackgroundImage extends Component {
           <View style={{ position: 'absolute', right:30, top: 80, zIndex:10, alignItems:'center', backgroundColor:'white', borderRadius: 5 }}>
           <Icon
             reverse
-            name='cart-arrow-down'
+            name='superpowers'
             type='font-awesome'
             color='green'
             size={35}
