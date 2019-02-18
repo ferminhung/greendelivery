@@ -1,0 +1,30 @@
+{
+  "expo": {
+    "name": "Green Delivery",
+    "slug": "greendelivery",
+    "privacy": "public",
+    "sdkVersion": "32.0.0",
+    "platforms": [
+      "ios",
+      "android"
+    ],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/logogreen-36.png",
+    "primaryColor":"#196F3D",
+    "splash": {
+      "image": "./assets/images/splashgreen-2.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
