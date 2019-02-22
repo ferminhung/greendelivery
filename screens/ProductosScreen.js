@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert, ScrollView, FlatList, Image, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Alert, ScrollView, AsyncStorage, FlatList, Image, ActivityIndicator } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 import { Divider, Icon, Header, Button } from 'react-native-elements'
 
@@ -11,8 +11,14 @@ export default class Productos extends React.Component {
   };
   constructor(props){
     super(props);
-    this.state ={ Loading: false,}
+    this.state ={ Loading: false,
+                  productos: [],
+                  name:'', 
+    }
   }
+
+  componentDidMount = () => AsyncStorage.getItem('Productos')
+  .then((value) => this.setState({ productos: JSON.parse(value) }))
     
   render() {
 
@@ -74,7 +80,7 @@ renderFlatListItem(item) {
               type='font-awesome'
               color='green'
               size={20}
-              onPress={() => Alert.alert("Pedido","Hemos agregado tu item al pedido")}
+              onPress={() => this.agregarPedido(item)}
           />
           <Text style={styles.restaurant}>{item.vcNombre}</Text>
         </View>
@@ -87,9 +93,14 @@ renderFlatListItem(item) {
 
       </View>
      )
-}
+  }
 
-
+  agregarPedido(item) {
+    var producto={nombre:item.tit, foto:item.foto, descripcion: item.desc };
+    this.state.productos.push(producto); 
+    AsyncStorage.setItem('Productos',JSON.stringify(this.state.productos));
+    Alert.alert(producto.nombre, JSON.stringify(this.state.productos));
+  }
 }
 
 const styles = StyleSheet.create({
