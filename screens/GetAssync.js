@@ -5,6 +5,7 @@ export const fetchProductos = async () => {
   try {
     let highScores = await AsyncStorage.getItem("Productos");
 
+    if (highScores === null) { return []; }
 
     return highScores;
   } catch (error) {
