@@ -41,6 +41,14 @@ export default class BackgroundImage extends Component {
             height: '100%',
           }}
         >
+          <Icon
+            containerStyle={{ position: 'absolute', right:10, bottom: 20, zIndex:10 }}
+            reverse
+            name='shopping-cart'
+            type='font-awesome'
+            color='green'
+            onPress={() => this.props.navigation.navigate( 'Pedido' )}
+          /> 
           <View style={{ position: 'absolute', right:30, top: 80, zIndex:10, alignItems:'center', backgroundColor:'white', borderRadius: 5 }}>
           <Icon
             reverse

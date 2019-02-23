@@ -9,12 +9,14 @@ import SettingsScreen from '../screens/SettingsScreen';
 import ProductosScreen from '../screens/ProductosScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegistroScreen from '../screens/RegistroScreen';
+import PedidoScreen from '../screens/PedidoScreen';
 
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
   Productos: ProductosScreen,
   Login: LoginScreen,
   Registro: RegistroScreen,
+  Pedido: PedidoScreen,
 });
 
 HomeStack.navigationOptions = {
@@ -50,11 +52,11 @@ const SettingsStack = createStackNavigator({
 });
 
 SettingsStack.navigationOptions = {
-  tabBarLabel: 'Pedido',
+  tabBarLabel: 'Green',
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === 'ios' ? 'ios-options' : 'md-checkmark'}
+      name={Platform.OS === 'ios' ? 'ios-options' : 'md-restaurant'}
     />
   ),
 };

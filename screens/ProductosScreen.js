@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Alert, ScrollView, AsyncStorage, FlatList, Image, ActivityIndicator } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
-import { Divider, Icon, Header, Button } from 'react-native-elements'
+import { Divider, Icon, Header, Button, ButtonGroup } from 'react-native-elements'
 
 import Loader from '../components/loader';
 
@@ -11,32 +11,42 @@ export default class Productos extends React.Component {
   };
   constructor(props){
     super(props);
-    this.state ={ Loading: false,
+    this.state ={ Loading: true,
                   productos: [],
                   name:'', 
+                  selectedIndex: 2, 
     }
+    this.updateIndex = this.updateIndex.bind(this)
+  }
+
+  updateIndex (selectedIndex) {
+    this.setState({selectedIndex})
   }
 
   componentDidMount = () => AsyncStorage.getItem('Productos')
-  .then((value) => this.setState({ productos: JSON.parse(value) }))
+  .then((value) => this.setState({ productos: JSON.parse(value), loading: false, }))
     
   render() {
 
     const dataSource = [
       
 
-      {tit:"Articulos Personales",foto:require("../assets/images/colgate.jpg"),desc:"Cuidado personal, agregalos en tu pedido",promo:"n",precio:"",orden:"0"},
-      {tit:"Combo Full Green",foto:require("../assets/images/combofull.jpg"),desc:"Sin pagos por adelantado",promo:"n",precio:"",orden:"0"}, 
-      {tit:"Combo Lacteos",foto:require("../assets/images/lacteos.jpg"),desc:"1 Kg de Queso semiduro, 1/2 Carton de Huevos",promo:"s",precio:"",orden:"0"}, 
-      {tit:"Combo Maracucho",foto:require("../assets/images/maracucho.jpg"),desc:"Papa, Tomate, Cebolla, Zanahoria, paquete de Ramas, Lechuga, Apio, Aguacate",promo:"n",precio:"",orden:"0"},
-      {tit:"Mega Green",foto:require("../assets/images/megagreen.jpg"),desc:"En la puerta de tu casa",promo:"n",precio:"",orden:"0"},
-      {tit:"Combo Viveres",foto:require("../assets/images/viveres.jpg"),desc:"Estas fuera del pais y quieres ayudar a tu familia, se acabaron las excusas",promo:"n",precio:"",orden:"0"}, 
+      {tit:"Articulos Personales",foto:require("../assets/images/colgate.jpg"),desc:"Cuidado personal, agregalos en tu pedido",promo:"n",precio:"",orden:"1"},
+      {tit:"Combo Full Green",foto:require("../assets/images/combofull.jpg"),desc:"Sin pagos por adelantado",promo:"n",precio:"",orden:"2"}, 
+      {tit:"Combo Lacteos",foto:require("../assets/images/lacteos.jpg"),desc:"1 Kg de Queso semiduro, 1/2 Carton de Huevos",promo:"s",precio:"",orden:"3"}, 
+      {tit:"Combo Maracucho",foto:require("../assets/images/maracucho.jpg"),desc:"Papa, Tomate, Cebolla, Zanahoria, paquete de Ramas, Lechuga, Apio, Aguacate",promo:"n",precio:"",orden:"4"},
+      {tit:"Mega Green",foto:require("../assets/images/megagreen.jpg"),desc:"En la puerta de tu casa",promo:"n",precio:"",orden:"5"},
+      {tit:"Combo Viveres",foto:require("../assets/images/viveres.jpg"),desc:"Estas fuera del pais y quieres ayudar a tu familia, se acabaron las excusas",promo:"n",precio:"",orden:"6"}, 
 
 
     ];
     
     return (
       <View >
+        <Loader
+          loading={this.state.loading} />
+        
+        
         <ScrollView>
 
 
@@ -45,18 +55,25 @@ export default class Productos extends React.Component {
             renderItem={({item}) => this.renderFlatListItem(item)}
             
           />
+
         </ScrollView>
         <Icon
-            containerStyle={{ position: 'absolute', right:10, top: 30, zIndex:10 }}
+            containerStyle={{ position: 'absolute', right:10, top: 50, zIndex:10 }}
+            reverse
+            name='shopping-cart'
+            type='font-awesome'
+            color='orange'
+            onPress={() => this.props.navigation.navigate( 'Pedido' )}
+        /> 
+        <Icon
+            containerStyle={{ position: 'absolute', left:10, top: 50, zIndex:10 }}
             reverse
             name='arrow-left'
             type='font-awesome'
             color='red'
             onPress={() => this.props.navigation.goBack()}
         /> 
-        <Text ></Text>
-        <Text ></Text>
-        <Text ></Text>
+        
       </View >
     );
   }
@@ -99,7 +116,7 @@ renderFlatListItem(item) {
     var producto={nombre:item.tit, foto:item.foto, descripcion: item.desc };
     this.state.productos.push(producto); 
     AsyncStorage.setItem('Productos',JSON.stringify(this.state.productos));
-    Alert.alert(producto.nombre, JSON.stringify(this.state.productos));
+    Alert.alert(producto.nombre, producto.descripcion);
   }
 }
 
