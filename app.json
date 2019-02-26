@@ -8,7 +8,7 @@
       "ios",
       "android"
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/images/logogreen-36.png",
     "primaryColor":"#196F3D",
@@ -24,7 +24,18 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "app.greendelivery.movil"
+    },
+    "android": {
+      "package": "app.greendelivery.movil",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_INTERNAL_STORAGE",
+        "android.permission.WRITE_INTERNAL_STORAGE",
+    ],
     }
   }
 }

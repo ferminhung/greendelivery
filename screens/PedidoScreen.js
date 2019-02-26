@@ -34,12 +34,13 @@ export default class PedidoScreen extends React.Component {
     	AsyncStorage.setItem('Productos',JSON.stringify(this.state.productos));
     	this.props.navigation.navigate( 'Home' );
     }else{
-	    alert(tipo);
+	    Alert.alert("Envio","La solicitud se envio a nuestro centro de atención, en segundos confirmamos el pedido");
+    	this.props.navigation.navigate( 'Home' );
     }
   }
 
   render() {
-  	const buttons = ['Borrar', 'Total', 'Enviar']
+  	const buttons = ['Borrar Pedido', 'Enviar Pedido']
     const { selectedIndex } = this.state
 
 

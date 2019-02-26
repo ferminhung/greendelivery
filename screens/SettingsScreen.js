@@ -24,7 +24,7 @@ export default class SettingsScreen extends React.Component {
   	const dataSource = [
       
 
-      {tit:"Articulos Personales",foto:require("../assets/images/colgate.jpg"),desc:"Cuidado personal, agregalos en tu pedido",promo:"n",precio:"",orden:"1"},
+      {tit:"Atendemos en estas Zonas del Zulia",foto:require("../assets/images/green4.jpg"),desc:"Zona Norte, Delicias, Av. el Milagro, La Limpia, San Francisco y Santa Rita",promo:"n",precio:"",orden:"1"},
 
 
     ];
@@ -76,15 +76,6 @@ export default class SettingsScreen extends React.Component {
         </View >
         <View style={{flexDirection: 'row',
           flexWrap: 'wrap', alignItems: 'center'}}>
-          <Icon
-              containerStyle={{ left:10, justifyContent: 'center'}}
-              reverse
-              name='cart-arrow-down'
-              type='font-awesome'
-              color='green'
-              size={20}
-              onPress={() => this.agregarPedido(item)}
-          />
           <Text style={styles.restaurant}>{item.vcNombre}</Text>
         </View>
         <Text style={styles.titulo}>{item.tit}</Text>
